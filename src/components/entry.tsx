@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-export default class extends Component {
+export default class extends Component<{
+  className?: string;
+}> {
   render() {
     return (
-      <div style={{
-            width: 200,
-            height:200,
-            backgroundColor: 'yellow'
-          }}>
+      <div
+        className={this.props.className}
+        style={{
+          width: 200,
+          height: 200,
+          backgroundColor: "yellow"
+        }}
+      >
         Entry
       </div>
     );
   }
 }
-

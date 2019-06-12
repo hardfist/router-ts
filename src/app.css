@@ -1,10 +1,10 @@
-.fade-enter {
+.fade.init {
   opacity: 0;
   z-index: 1;
   transform: scale(0);
 }
 
-.fade-enter.fade-enter-active {
+.fade.enter {
   opacity: 1;
   transform: scale(1);
   transition: all 250ms ease-in;

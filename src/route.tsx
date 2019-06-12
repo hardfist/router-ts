@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import path2regex from "path-to-regexp";
+import classnames from "classnames";
 import history from "./history";
 const LocationContext = React.createContext({
   url: "/",
@@ -28,17 +29,29 @@ export class Link extends Component<{
     );
   }
 }
-export class Route extends Component<{
-  path: string;
-}> {
+export class Route extends Component<
+  {
+    path: string;
+    children: React.ReactElement;
+  },
+  {
+    stage: string;
+  }
+> {
+  context!: React.ContextType<typeof LocationContext>;
+  static contextType = LocationContext;
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      stage: "init"
+    };
+  }
   render() {
+    const re = path2regex(this.props.path);
+
     return (
-      <LocationContext.Consumer>
-        {(context: any) => {
-          const re = path2regex(this.props.path);
-          return re.test(context.url) && this.props.children;
-        }}
-      </LocationContext.Consumer>
+      re.test(this.context.url) &&
+      React.cloneElement(this.props.children)
     );
   }
 }

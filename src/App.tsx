@@ -2,8 +2,7 @@ import React from "react";
 import { Router, Link, Route, LocationContext } from "./route";
 import Card from "./components/card";
 import Entry from "./components/entry";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
-import './app.css';
+import "./app.css";
 
 const App: React.FC = () => {
   return (
@@ -18,18 +17,14 @@ const App: React.FC = () => {
           <Link href="/card">card</Link>
           <LocationContext.Consumer>
             {({ url }) => (
-              <TransitionGroup>
-                <CSSTransition key={url} timeout={300} classNames="fade">
-                  <>
-                    <Route path="/entry">
-                      <Entry />
-                    </Route>
-                    <Route path="/card">
-                      <Card />
-                    </Route>
-                  </>
-                </CSSTransition>
-              </TransitionGroup>
+              <>
+                <Route path="/entry">
+                  <Entry />
+                </Route>
+                <Route path="/card">
+                  <Card />
+                </Route>
+              </>
             )}
           </LocationContext.Consumer>
         </Router>
