@@ -1,6 +1,9 @@
 import React from "react";
-import { Router, Link, Route } from "./route";
-const Lazy = React.lazy(() => import("./card"));
+import { Router, Link, Route, LocationContext } from "./route";
+import Card from "./components/card";
+import Entry from "./components/entry";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import './app.css';
 
 const App: React.FC = () => {
   return (
@@ -11,14 +14,24 @@ const App: React.FC = () => {
         }}
       >
         <Router>
-          <Link href="/path">path</Link>
           <Link href="/entry">entry</Link>
-          <Link href="/lazy">lazy</Link>
-          <Route path="/path">this is a path </Route>
-          <Route path="/entry">this is a entry</Route>
-          <Route path="/lazy">
-            <Lazy />
-          </Route>
+          <Link href="/card">card</Link>
+          <LocationContext.Consumer>
+            {({ url }) => (
+              <TransitionGroup>
+                <CSSTransition key={url} timeout={300} classNames="fade">
+                  <>
+                    <Route path="/entry">
+                      <Entry />
+                    </Route>
+                    <Route path="/card">
+                      <Card />
+                    </Route>
+                  </>
+                </CSSTransition>
+              </TransitionGroup>
+            )}
+          </LocationContext.Consumer>
         </Router>
       </React.Suspense>
     </>

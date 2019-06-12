@@ -1,7 +1,12 @@
 import React, { Component } from "react";
 import path2regex from "path-to-regexp";
 import history from "./history";
-const LocationContext = React.createContext({});
+const LocationContext = React.createContext({
+  url: "/",
+  navigate: (url: string) => {}
+});
+
+export { LocationContext };
 export class Link extends Component<{
   href: string;
 }> {
